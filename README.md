@@ -146,17 +146,22 @@ The screenshots document successful deployment of the infrastructure and Recover
 ## Repository Structure
 
 ```text
-azure-vm-data-protection/
-├── README.md
-├── screenshots.md
-├── screenshots/
-│   ├── 01-*.png
-│   ├── ...
-│   └── 16-*.png
-└── arm-template/
-    ├── README.md
-    ├── template.json
-    └── parameters.json
+azure-vm-data-protection
+│
+├── 📄 README.md
+├── 📄 screenshots.md
+│
+├── 📁 arm-template
+│   ├── 📄 README.md
+│   ├── 📄 template.json
+│   └── 📄 parameters.json
+│
+└── 📁 screenshots
+    ├── 🖼️ 01-...
+    ├── 🖼️ 02-...
+    ├── 🖼️ 03-...
+    ├── ...
+    └── 🖼️ 16-...
 ```
 
 ## Important
