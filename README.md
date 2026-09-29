@@ -148,28 +148,50 @@ The screenshots document successful deployment of the infrastructure and Recover
 ```text
 azure-vm-data-protection/
 ├── README.md
-├── arm-template/
-│   ├── README.md
-│   ├── template.json
-│   └── parameters.json
-└── screenshots/
-    ├── 01-lab-10-introduction-and-data-protection-architecture.png
-    ├── ...
-    └── 20-standard-vm-backup-policy-with-daily-schedule-and-retention.png
+├── screenshots.md
+├── screenshots/
+│   ├── 01-*.png
+│   ├── ...
+│   └── 16-*.png
+└── arm-template/
+    ├── README.md
+    ├── template.json
+    └── parameters.json
 ```
 
 ## Important
 
-The screenshots establish the implementation evidence, but the original ARM `template.json` and `parameters.json` files were not included in the uploaded screenshots.
+The ARM files in `arm-template/` are **reconstructed equivalents based on the configuration visible in the lab screenshots**. They are provided to demonstrate infrastructure-as-code structure and are not represented as the original Microsoft lab files.
 
-To make this repository **fully deployable**, add the original JSON files from the lab:
+Before deploying, review the template for your own subscription, region, naming requirements, security controls, and current Azure resource/API versions.
 
-```text
-arm-template/template.json
-arm-template/parameters.json
-```
+**Security:** `parameters.json` contains a placeholder password only. Never commit real passwords, access keys, connection strings, tokens, or other secrets. Use secure deployment parameters or Azure Key Vault for sensitive values.
 
-Do **not** upload passwords or secret values. Use secure parameters, Azure Key Vault, or deployment-time secret input.
+## Potential Problems and How to Resolve Them
+
+| Potential problem | How to resolve it |
+|---|---|
+| ARM deployment fails because a resource name is already in use | Check the deployment error and use unique resource names or adjust the template parameters. |
+| VM deployment fails because the selected VM size is unavailable in the region | Choose an available VM size in the target region and update the `vmSize` parameter. |
+| Azure Backup cannot protect the VM | Confirm the VM is supported, the Recovery Services vault is in the correct region, and the backup configuration is completed successfully. |
+| Backup policy settings do not match the lab | Review the backup policy schedule and retention settings before enabling protection. |
+| Recovery Services vault storage configuration cannot be changed after protection is enabled | Select the required redundancy setting during initial vault configuration and verify it before protecting workloads. |
+| Soft delete or other protection settings appear different from the lab | Azure portal options can change over time. Verify the current Microsoft Azure Backup documentation and the settings available in the selected region. |
+| RDP access to the VM is blocked | Verify the NSG inbound rule, VM status, public IP association, and Windows firewall configuration. For production, restrict RDP to trusted source IPs or use a more secure access method. |
+| Deployment exposes credentials in the parameter file | Never commit real credentials. Replace secrets with secure parameters, Key Vault, or deployment-time input and rotate any credential that was accidentally exposed. |
+| Screenshot evidence contains subscription or account information | Redact sensitive identifiers before publishing screenshots to a public repository. |
+
+> **Lab security note:** The reconstructed template includes an RDP rule suitable for demonstrating the lab workflow. In a production environment, avoid unrestricted RDP access and apply least-privilege network controls.
+
+## Lessons Learned
+
+- **Infrastructure as Code improves repeatability:** ARM templates make Azure infrastructure easier to reproduce consistently instead of creating every resource manually.
+- **Backup planning is more than enabling backup:** Storage redundancy, soft delete, backup frequency, and retention should be considered together as part of a data-protection strategy.
+- **Validation matters after deployment:** Successful resource deployment does not automatically mean that backup protection is configured correctly. Each stage should be verified.
+- **Security must be considered during implementation:** Network access rules and administrative credentials require careful handling, especially when publishing project work publicly.
+- **Screenshots provide useful implementation evidence:** Clear screenshots can demonstrate configuration decisions and successful deployment steps when documenting a cloud project.
+- **Azure configurations can change:** Portal interfaces, available VM sizes, backup options, and service capabilities may change, so current Azure documentation should be checked when reproducing an older lab.
+- **Production design requires additional controls:** A lab configuration is useful for learning, but production environments should apply least privilege, restricted network access, monitoring, alerting, recovery testing, and appropriate governance.
 
 ## Portfolio Summary
 
