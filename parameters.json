@@ -1,0 +1,51 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "adminUsername": {
+      "value": "localadmin"
+    },
+    "adminPassword": {
+      "value": "REPLACE_WITH_A_SECURE_PASSWORD"
+    },
+    "vmNamePrefix": {
+      "value": "az104-10-vm"
+    },
+    "pipNamePrefix": {
+      "value": "az104-10-pip"
+    },
+    "nicNamePrefix": {
+      "value": "az104-10-nic"
+    },
+    "imagePublisher": {
+      "value": "MicrosoftWindowsServer"
+    },
+    "imageOffer": {
+      "value": "WindowsServer"
+    },
+    "imageSku": {
+      "value": "2022-datacenter-g2"
+    },
+    "vmSize": {
+      "value": "Standard_D2s_v5"
+    },
+    "virtualNetworkName": {
+      "value": "az104-10-vnet"
+    },
+    "addressPrefix": {
+      "value": "10.0.0.0/24"
+    },
+    "subnetName": {
+      "value": "subnet0"
+    },
+    "subnetPrefix": {
+      "value": "10.0.0.0/24"
+    },
+    "networkSecurityGroupName": {
+      "value": "az104-10-nsg01"
+    },
+    "publicIpAllocationMethod": {
+      "value": "Static"
+    }
+  }
+}
